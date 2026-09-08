@@ -45,6 +45,7 @@ class Settings(BaseSettings):
             "urban_building_deeplabv3_best.pth"
         )
     )
+    MODEL1_R2_KEY: str = "checkpoints/urban_building_deeplabv3_best.pth"
 
     # Inference settings
     TILE_SIZE: int = 512

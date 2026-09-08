@@ -1,3 +1,4 @@
+import os
 from contextlib import asynccontextmanager
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
@@ -25,10 +26,28 @@ async def lifespan(app: FastAPI):
         logger.critical(f"Startup aborted: Database bootstrapping failed: {e}")
         raise e
 
-    # 2. Pre-load Model 1 Checkpoint
+    # 2. Pre-load Model 1 Checkpoint (download from R2 if not on disk)
+    checkpoint_path = settings.MODEL1_CHECKPOINT
+    if not os.path.exists(checkpoint_path):
+        logger.info(f"Checkpoint not found locally at {checkpoint_path}, downloading from R2...")
+        try:
+            from app.services.storage_service import storage_service
+            os.makedirs(os.path.dirname(checkpoint_path), exist_ok=True)
+            success = storage_service.download_file(
+                settings.MODEL1_R2_KEY, checkpoint_path
+            )
+            if not success:
+                raise RuntimeError(
+                    f"Failed to download checkpoint from R2 key '{settings.MODEL1_R2_KEY}'"
+                )
+            logger.info(f"Checkpoint downloaded successfully to {checkpoint_path}")
+        except Exception as e:
+            logger.critical(f"Startup aborted: Could not download checkpoint from R2: {e}")
+            raise RuntimeError(f"Failed to download Model 1 checkpoint from R2: {e}")
+
     try:
         model1 = model_registry.get_model("model1_building")
-        model1.load_model(settings.MODEL1_CHECKPOINT)
+        model1.load_model(checkpoint_path)
     except Exception as e:
         logger.critical(f"Startup aborted: Model 1 checkpoint failed to load: {e}")
         raise RuntimeError(f"Failed to load Model 1 checkpoint at startup: {e}")
