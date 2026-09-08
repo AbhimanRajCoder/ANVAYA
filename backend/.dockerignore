@@ -1,0 +1,18 @@
+venv/
+__pycache__/
+*.pyc
+.env
+.git/
+.github/
+
+# Ignore massive model files except the production checkpoint
+*.pth
+!MODEL/urban_building_deeplabv3_best.pth
+*.pt
+*.ckpt
+*.h5
+
+# Ignore local db/data & storage
+*.sqlite3
+data/
+storage/
