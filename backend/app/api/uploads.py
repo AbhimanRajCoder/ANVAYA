@@ -20,7 +20,8 @@ def background_upload_to_r2(local_filepath: str, stored_filename: str):
             os.remove(local_filepath)
 
 
-@router.post("/")
+@router.post("")
+@router.post("/", include_in_schema=False)
 async def upload_file(
     file: UploadFile = File(...),
     background_tasks: BackgroundTasks = BackgroundTasks()

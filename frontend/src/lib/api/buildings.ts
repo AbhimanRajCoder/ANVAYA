@@ -1,4 +1,4 @@
-import { apiClient } from "./client";
+import { apiClient, getBaseURL } from "./client";
 import { GeoJSONFeatureCollection } from "@/types";
 
 export const getBuildings = async (projectId: string): Promise<GeoJSONFeatureCollection> => {
@@ -26,7 +26,7 @@ export const patchBuildingReview = async (
 };
 
 export const getExportUrl = (projectId: string, format: string): string => {
-  const baseURL = process.env.NEXT_PUBLIC_API_BASE_URL || "http://localhost:8000";
+  const baseURL = getBaseURL();
   return `${baseURL}/api/v1/projects/${projectId}/export?format=${format}`;
 };
 

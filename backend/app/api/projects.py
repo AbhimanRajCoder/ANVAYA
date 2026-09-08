@@ -10,7 +10,8 @@ from app.core.logging import logger
 router = APIRouter()
 
 
-@router.post("/", response_model=schemas.ProjectResponse, status_code=status.HTTP_201_CREATED)
+@router.post("", response_model=schemas.ProjectResponse, status_code=status.HTTP_201_CREATED)
+@router.post("/", response_model=schemas.ProjectResponse, status_code=status.HTTP_201_CREATED, include_in_schema=False)
 def create_project_endpoint(project: schemas.ProjectCreate):
     """Create a new survey project record in the database."""
     try:
@@ -22,7 +23,8 @@ def create_project_endpoint(project: schemas.ProjectCreate):
         )
 
 
-@router.get("/", response_model=List[schemas.ProjectResponse])
+@router.get("", response_model=List[schemas.ProjectResponse])
+@router.get("/", response_model=List[schemas.ProjectResponse], include_in_schema=False)
 def read_projects_endpoint(skip: int = 0, limit: int = 100):
     """List all survey projects."""
     return project_service.get_projects(skip=skip, limit=limit)
