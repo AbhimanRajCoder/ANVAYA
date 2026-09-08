@@ -1,6 +1,7 @@
 import os
 import datetime
 from fastapi import APIRouter, HTTPException, BackgroundTasks, status
+from app.models import model_registry
 from app.schemas import processing as schemas
 from app.services import project_service, inference_service, vectorization_service
 from app.core.config import settings
@@ -9,14 +10,17 @@ from app.core.logging import logger
 router = APIRouter()
 
 
+IST = datetime.timezone(datetime.timedelta(hours=5, minutes=30))
+
+
 def add_project_log(project_id: str, message: str):
-    """Write a timestamped log message to a log file for the project."""
+    """Write a timestamped log message to a log file for the project (in IST time)."""
     try:
         log_dir = os.path.join(settings.BASE_STORAGE_DIR, "logs")
         os.makedirs(log_dir, exist_ok=True)
         log_file = os.path.join(log_dir, f"{project_id}.log")
         
-        timestamp = datetime.datetime.now().strftime("%H:%M:%S")
+        timestamp = datetime.datetime.now(IST).strftime("%H:%M:%S")
         log_line = f"[{timestamp}] {message}"
         
         with open(log_file, "a") as f:
@@ -80,7 +84,21 @@ def execute_pipeline(project_id: str):
 
         # 3. Running AI Inference (Model 1)
         add_project_log(project_id, "INFO [Step 3/5]: Instantiating Model 1 (DeepLabV3+ with ResNet50 backbone)...")
-        add_project_log(project_id, "INFO: Mapping model execution to Apple Silicon GPU (MPS) accelerator...")
+        
+        try:
+            model1 = model_registry.get_model("model1_building")
+            device_name = str(getattr(model1, "device", "cpu"))
+        except Exception:
+            device_name = "cpu"
+        
+        if "cuda" in device_name:
+            device_desc = f"NVIDIA CUDA GPU ({device_name})"
+        elif "mps" in device_name:
+            device_desc = f"Apple Silicon GPU ({device_name})"
+        else:
+            device_desc = f"CPU ({device_name})"
+
+        add_project_log(project_id, f"INFO: Mapping model execution to {device_desc} accelerator...")
         
         # Progress callback updates progress value in the range [20%, 80%]
         def progress_callback(processed: int, total: int):
