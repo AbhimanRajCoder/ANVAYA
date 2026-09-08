@@ -24,8 +24,9 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 COPY requirements.txt /app/
 
 # Install CPU-optimized PyTorch & torchvision to minimize container footprint (~200MB vs ~2GB)
-RUN grep -v "torch" requirements.txt > req_no_torch.txt && \
-    pip install --no-cache-dir torch torchvision --index-url https://download.pytorch.org/whl/cpu && \
+RUN pip install --no-cache-dir --upgrade pip setuptools wheel && \
+    pip install --no-cache-dir torch torchvision --extra-index-url https://download.pytorch.org/whl/cpu && \
+    grep -v "torch" requirements.txt > req_no_torch.txt && \
     pip install --no-cache-dir -r req_no_torch.txt
 
 # Copy application source code and model weights
