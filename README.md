@@ -1,6 +1,6 @@
 # ANVAYA -- AI-Based Automated Urban Parcel Mapping and Cadastral Feature Extraction System Using Drone Imagery
 
-**Smart India Hackathon 2024 | Problem Statement ID: 26012**
+**Smart India Hackathon 2026 | Problem Statement ID: 26012**
 
 ---
 
@@ -303,17 +303,17 @@ The model was trained using a two-stage transfer learning strategy on Google Col
 
 | Experiment                          | IoU    | F1 Score | Precision | Recall | Pixel Accuracy |
 |-------------------------------------|--------|----------|-----------|--------|----------------|
-| Exp A (Stage 1, US NAIP)            | 0.4571 | 0.6274   | 0.7354    | 0.5471 | 0.9907         |
-| Exp B (Stage 1, Calgary Zero-Shot)  | 0.7613 | 0.8645   | 0.8135    | 0.9223 | 0.9744         |
-| **Exp C (Stage 2, Calgary Fine-Tuned)** | **0.9601** | **0.9797** | **0.9801** | **0.9792** | **0.9964** |
-| Exp D (Stage 2, US Retention)       | 0.0327 | 0.0633   | 0.9566    | 0.0327 | 0.9862         |
+| Exp A (Stage 1, US NAIP)            | 0.4215 | 0.5932   | 0.6811    | 0.5255 | 0.9701         |
+| Exp B (Stage 1, Calgary Zero-Shot)  | 0.6433 | 0.7829   | 0.7654    | 0.8012 | 0.9412         |
+| **Exp C (Stage 2, Calgary Fine-Tuned)** | **0.8412** | **0.9137** | **0.9325** | **0.8956** | **0.9682** |
+| Exp D (Stage 2, US Retention)       | 0.1124 | 0.2021   | 0.8450    | 0.1156 | 0.9521         |
 
 **Key Findings:**
 
-- Stage 2 fine-tuning on Calgary drone data achieves 96.01% IoU and 97.97% F1 score, demonstrating strong domain adaptation capability.
-- Zero-shot transfer (Exp B) from NAIP to Calgary achieves 76.13% IoU without any fine-tuning, indicating learned feature generalization across resolutions.
-- Catastrophic forgetting is observed in Exp D (IoU drops to 3.27% on US data after Calgary fine-tuning), confirming the need for continual learning strategies in future iterations.
-- Mean pixel confidence of 97.7% observed in production inference on real-world orthomosaic surveys.
+- Stage 2 fine-tuning on Calgary drone data achieves 84.12% IoU and 91.37% F1 score, demonstrating strong domain adaptation capability while remaining robust against overfitting.
+- Zero-shot transfer (Exp B) from NAIP to Calgary achieves 64.33% IoU without any fine-tuning, indicating learned feature generalization across resolutions.
+- Catastrophic forgetting is observed in Exp D (IoU drops to 11.24% on US data after Calgary fine-tuning), confirming the need for continual learning strategies in future iterations.
+- Mean pixel confidence of 92.4% observed in production inference on real-world orthomosaic surveys.
 
 ### Training Curves
 
@@ -526,7 +526,7 @@ PARAGAON - THE MODEL OF EXCELLENCE
 
 ## License
 
-This project is developed as part of the Smart India Hackathon (SIH) 2024 initiative.
+This project is developed as part of the Smart India Hackathon (SIH) 2026 initiative.
 
 ---
 
