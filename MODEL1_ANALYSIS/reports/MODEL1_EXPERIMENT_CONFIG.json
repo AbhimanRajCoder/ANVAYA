@@ -1,0 +1,32 @@
+{
+    "random_seed": 42,
+    "python_version": "3.13.15 (main, Aug  6 2026, 11:06:23) [GCC 11.4.0]",
+    "pytorch_version": "2.11.0+cu128",
+    "cuda_available": true,
+    "cuda_version": "12.8",
+    "gpu_device": "Tesla T4",
+    "model_architecture": "SegFormer-B2",
+    "backbone_encoder": "nvidia/mit-b2",
+    "stage1_checkpoint": "/content/CRYPT-AI/checkpoints/segformer_stage1_best.pth",
+    "stage2_checkpoint": "/content/CRYPT-AI/checkpoints/segformer_stage2_calgary_best.pth",
+    "optimal_threshold": 0.45,
+    "loss_config": "CombinedLoss (50% CrossEntropy + 50% DiceLoss)",
+    "normalization": {
+        "mean": [
+            0.485,
+            0.456,
+            0.406
+        ],
+        "std": [
+            0.229,
+            0.224,
+            0.225
+        ]
+    },
+    "post_processing": {
+        "min_pixel_size": 100,
+        "max_hole_size": 150,
+        "confidence_ignore": 0.3,
+        "confidence_accept": 0.7
+    }
+}

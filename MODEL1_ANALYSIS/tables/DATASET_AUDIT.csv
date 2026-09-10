@@ -1,0 +1,3 @@
+Dataset,Total Tiles,Total Masks,Image Width,Image Height,Channels,Data Type,Background Pixel %,Building Pixel %,Ratio Building/Background,Tiles With Buildings,Tiles Without Buildings,Min Building Area (px),Max Building Area (px),Mean Building Area (px),Median Building Area (px)
+US Southeast (NAIP),1000,1000,512,512,3,uint8,98.41939290364583,1.5806070963541665,0.016059915121622487,1000,0,6.0,22021.0,2106.8474576271187,1448.0
+Calgary Drone,2534,2534,512,512,3,uint8,92.88480122884114,7.115198771158854,0.0766024007913746,844,1689,339.0,150977.0,29450.63157894737,8606.0
