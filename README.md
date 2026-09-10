@@ -8,7 +8,7 @@
 
 1. [Problem Statement](#problem-statement)
 2. [Solution Overview](#solution-overview)
-3. [Screenshots](#screenshots)
+3. [Frontend Application](#frontend-application)
 4. [System Architecture](#system-architecture)
 5. [Technology Stack](#technology-stack)
 6. [Project Structure](#project-structure)
@@ -19,12 +19,11 @@
    - [Experiment Matrix](#experiment-matrix)
    - [Evaluation Results](#evaluation-results)
 8. [Backend API](#backend-api)
-9. [Frontend Application](#frontend-application)
-10. [Deployment](#deployment)
-11. [Setup and Installation](#setup-and-installation)
-12. [Prototype Status](#prototype-status)
-13. [Team](#team)
-14. [License](#license)
+9. [Deployment](#deployment)
+10. [Setup and Installation](#setup-and-installation)
+11. [Prototype Status](#prototype-status)
+12. [Team](#team)
+13. [License](#license)
 
 ---
 
@@ -55,35 +54,51 @@ The system follows a six-stage pipeline architecture:
 
 ---
 
-## Screenshots
+## Frontend Application
+
+The frontend is a production-grade geospatial web application built with Next.js 16 and MapLibre GL JS v6.
 
 ### Cadastral Registry Dashboard
 
-Centralized survey management interface with aggregate statistics and project registry.
+- Aggregate statistics: total surveys, completed surveys, buildings detected, mapped area
+- Survey registry table with status tracking, feature counts, and quick actions
 
-![Cadastral Registry Dashboard](SCREENSHOTS/IMAGE1.png)
+![Dashboard](SCREENSHOTS/IMAGE1.png)
 
 ### Multi-Step Upload Wizard
 
-Guided 5-step workflow for orthomosaic ingestion with automatic geospatial metadata extraction.
+- 5-step guided workflow: Project --> Upload --> Metadata --> Validation --> Create
+- Automatic geospatial metadata extraction (CRS, dimensions, resolution, bounding box)
+- Server-side raster format and coordinate reference system validation
 
-![Upload Wizard -- Project Creation](SCREENSHOTS/IMAGE2.png)
-
-![Upload Wizard -- Metadata Validation](SCREENSHOTS/IMAGE3.png)
-
-![Upload Wizard -- Survey Creation](SCREENSHOTS/IMAGE4.png)
+![Upload Wizard](SCREENSHOTS/IMAGE3.png)
 
 ### GIS Map Workspace
 
-WebGL-powered map editor with layer management, property inspection, polygon editing, and confidence-based QA review.
+- WebGL-accelerated orthomosaic TIFF rendering with brightness/contrast controls
+- AI-detected building footprint overlay with per-polygon confidence scores
+- Layer manager with drag-and-drop z-ordering, visibility toggles, and opacity controls
+- Property inspector displaying area (m2), perimeter (m), shape class, and spatial attributes
+- Shape aesthetics editor: fill color, stroke color, thickness, and opacity
+- Annotation tools: polygon selection, vertex editing, rotation
 
-![GIS Workspace with Layer Manager and Property Inspector](SCREENSHOTS/IMAGE5.png)
+![GIS Workspace](SCREENSHOTS/IMAGE5.png)
+
+### Human-in-the-Loop QA Review
+
+- Confidence-based review queue sorted by lowest confidence first
+- QA threshold slider for filtering uncertain predictions
+- Per-polygon Approve/Reject actions with reviewer attribution
+- Compare AI vs Edited mode for change visualization
+- Reset to AI and Save All bulk operations
 
 ### Results and Export
 
-Analytical report with validated building count, built-up area, mean AI confidence, and GeoJSON export.
+- Analytical report with validated building count, total built-up area, and mean AI confidence
+- Building QA summary (HIL) with approved, rejected, and edited shape counts
+- GeoJSON export in WGS84 coordinates (EPSG:4326) for QGIS/ArcGIS import
 
-![Results and Export Page](SCREENSHOTS/IMAGE6.png)
+![Results and Export](SCREENSHOTS/IMAGE6.png)
 
 ---
 
@@ -252,7 +267,7 @@ Model 1 implements a two-stage semantic segmentation pipeline for building footp
 
 The model was trained using a two-stage transfer learning strategy on Google Colab (NVIDIA Tesla T4, CUDA 12.8).
 
-| Parameter           | Value                                                ||
+| Parameter           | Value                                                |
 |---------------------|------------------------------------------------------|
 | Optimizer           | AdamW (lr=2e-5, weight_decay=1e-4)                   |
 | LR Scheduler        | CosineAnnealingWarmRestarts (T_0=10, T_mult=2)       |
@@ -379,53 +394,6 @@ UPLOADED --> PREPROCESSING --> TILING --> AI_INFERENCE --> VECTORIZATION --> COM
 | COMPLETED       | Data persisted to PostGIS, temporary artifacts cleaned         |
 | FAILED          | Pipeline error; details logged to server console               |
 
----
-
-## Frontend Application
-
-The frontend is a production-grade geospatial web application built with Next.js 16 and MapLibre GL JS v6.
-
-### Cadastral Registry Dashboard
-
-- Aggregate statistics: total surveys, completed surveys, buildings detected, mapped area
-- Survey registry table with status tracking, feature counts, and quick actions
-
-![Dashboard](SCREENSHOTS/IMAGE1.png)
-
-### Multi-Step Upload Wizard
-
-- 5-step guided workflow: Project --> Upload --> Metadata --> Validation --> Create
-- Automatic geospatial metadata extraction (CRS, dimensions, resolution, bounding box)
-- Server-side raster format and coordinate reference system validation
-
-![Upload Wizard](SCREENSHOTS/IMAGE3.png)
-
-### GIS Map Workspace
-
-- WebGL-accelerated orthomosaic TIFF rendering with brightness/contrast controls
-- AI-detected building footprint overlay with per-polygon confidence scores
-- Layer manager with drag-and-drop z-ordering, visibility toggles, and opacity controls
-- Property inspector displaying area (m2), perimeter (m), shape class, and spatial attributes
-- Shape aesthetics editor: fill color, stroke color, thickness, and opacity
-- Annotation tools: polygon selection, vertex editing, rotation
-
-![GIS Workspace](SCREENSHOTS/IMAGE5.png)
-
-### Human-in-the-Loop QA Review
-
-- Confidence-based review queue sorted by lowest confidence first
-- QA threshold slider for filtering uncertain predictions
-- Per-polygon Approve/Reject actions with reviewer attribution
-- Compare AI vs Edited mode for change visualization
-- Reset to AI and Save All bulk operations
-
-### Results and Export
-
-- Analytical report with validated building count, total built-up area, and mean AI confidence
-- Building QA summary (HIL) with approved, rejected, and edited shape counts
-- GeoJSON export in WGS84 coordinates (EPSG:4326) for QGIS/ArcGIS import
-
-![Results and Export](SCREENSHOTS/IMAGE6.png)
 
 ---
 
@@ -552,7 +520,7 @@ The application will be available at `http://localhost:3000`.
 
 ## Team
 
-ANVAYA -- Cadastral Intelligence
+PARAGAON - THE MODEL OF EXCELLENCE
 
 ---
 
