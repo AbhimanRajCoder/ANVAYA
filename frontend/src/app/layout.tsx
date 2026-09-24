@@ -15,8 +15,15 @@ const plexMono = IBM_Plex_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "ANVAYA | Cadastral Intelligence",
+  title: "ANVAYA — Cadastral Intelligence Platform",
   description: "AI-based automated urban parcel mapping and cadastral feature extraction system.",
+  icons: {
+    icon: [
+      { url: "/favicon.png", type: "image/png" },
+    ],
+    shortcut: "/favicon.png",
+    apple: "/favicon.png",
+  },
 };
 
 import LayoutWrapper from "@/components/layout/LayoutWrapper";

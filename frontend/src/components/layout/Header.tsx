@@ -69,10 +69,7 @@ export default function Header() {
     }
 
     return (
-      <div className="flex items-center gap-2 text-verified-green bg-[#e7f4ec] px-3 py-1.5 rounded-[3px] font-plex-mono text-caption uppercase">
-        <Wifi className="h-3.5 w-3.5 animate-pulse" />
-        <span>SYSTEM ONLINE</span>
-      </div>
+      <div ></div>
     );
   };
 
@@ -130,9 +127,6 @@ export default function Header() {
             ANVAYA
           </span>
         </Link>
-        <span className="text-caption text-fog font-plex-mono hidden sm:inline-block">
-          cadastral intelligence
-        </span>
       </div>
 
       {renderWorkflowIndicator()}
